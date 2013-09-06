@@ -1,12 +1,1 @@
-/* global
-  define: false,
-  console: false
-*/
-
-define({
-  foo : function () {
-    'use strict';
-
-    console.log( 'module1' );
-  }
-});
+define({foo:function(){console.log("module1")}});

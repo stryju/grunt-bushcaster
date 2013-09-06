@@ -40,21 +40,32 @@ module.exports = function ( grunt ) {
         options : {
           appDir         : 'test/src/',
           mainConfigFile : 'test/src/config.js',
-          dir            : '../test/dist',
+          dir            : 'test/dist',
           keepBuildDir   : true,
 
-          // optimize       : 'uglify2',
-          // removeCombined : true,
+          optimize       : 'uglify2',
+          removeCombined : true,
 
-          modules : [
-            {
-              name    : 'main',
-              exclude : [
-                'module1/module'
-              ]
-            }
-          ]
+          // modules : [
+          //   {
+          //     name    : 'config',
+          //     exclude : [
+          //       'vendor/lib',
+          //       'module1/module'
+          //     ]
+          //   }
+          // ]
         }
+      }
+    },
+
+    'requirejs-cachebuster' : {
+      files : [
+        'test/dist/**/*.js'
+      ],
+
+      options : {
+        dir : 'test/dist'
       }
     }
 

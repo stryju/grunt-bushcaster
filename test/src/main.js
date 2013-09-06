@@ -2,7 +2,7 @@
   define: false
 */
 
-define( 'main',[
+define([
   'module1/module',
   'module2/module',
   'vendor/lib'
