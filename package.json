@@ -1,0 +1,32 @@
+{
+  "name": "grunt-requirejs-cachebuster",
+  "version": "0.0.0",
+  "description": "grunt-requirejs-cachebuster",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stryju/grunt-requirejs-cachebuster.git"
+  },
+  "keywords": [
+    "grunt",
+    "requirejs",
+    "cachebuster"
+  ],
+  "author": "tomasz stryjewski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stryju/grunt-requirejs-cachebuster/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.4",
+    "time-grunt": "~0.1.1",
+    "matchdep": "~0.1.2",
+    "grunt-contrib-clean": "~0.5.0"
+  }
+}
