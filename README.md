@@ -5,10 +5,10 @@ keep in mind, tho - it's **work in progress** ( you have been warned )
 
 todos
 -----
-- [ ] skip processing for certain files
-- [ ] support reading the config from requirejs config
-- [ ] more sophisticated testing
-- [ ] lots'more afaik...
+- skip processing for certain files
+- support reading the config from requirejs config
+- more sophisticated testing
+- lots'more afaik...
 
 sample:
 
