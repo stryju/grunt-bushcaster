@@ -38,7 +38,8 @@ module.exports = function ( grunt ) {
     requirejs : {
       test : {
         options : {
-          appDir         : 'test/src/',
+          appDir         : 'test/src',
+          baseUrl        : '.',
           mainConfigFile : 'test/src/require-config.js',
           dir            : 'test/dist',
           keepBuildDir   : true,
