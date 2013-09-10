@@ -6,7 +6,6 @@
   "scripts": {
     "test": "grunt"
   },
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git://github.com/stryju/grunt-requirejs-cachebuster.git"
@@ -23,10 +22,10 @@
   },
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-jshint": "~0.6.4",
-    "time-grunt": "~0.1.1",
+    "grunt-contrib-requirejs": "~0.4.1",
     "matchdep": "~0.1.2",
-    "grunt-contrib-clean": "~0.5.0"
+    "time-grunt": "~0.1.1"
   }
 }
