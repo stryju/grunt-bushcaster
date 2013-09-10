@@ -19,7 +19,19 @@ sample:
   ],
 
   options : {
-    dir : 'test/dist'
+    // working directory, to be stripped from filepaths
+    // might work around it to use cwd in files...
+    dir : 'test/dist',
+
+    // length of the hash to be added
+    hashLength : 8,
+
+    // should we removed the source files?
+    removeSources : 'true',
+
+    // globbing pattern for files that sould not be processed with updated references
+    // useful for libs, like jquery, or so - might speed up the whole process a bit
+    noProcess : 'test/dist/vendor/**/*.js'
   }
 }
 ```

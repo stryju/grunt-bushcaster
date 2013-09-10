@@ -1,6 +1,6 @@
 {
   "name": "grunt-requirejs-cachebuster",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "grunt task for requirejs cachebusting",
   "main": "index.js",
   "scripts": {

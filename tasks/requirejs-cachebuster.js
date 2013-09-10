@@ -51,14 +51,19 @@ module.exports = function ( grunt ) {
   }
 
   grunt.registerMultiTask( 'requirejs-cachebuster', 'voodoo', function () {
-
     var options = this.options({
-      hashLength : 8
+      dir          : false,
+      hashLength   : 8,
+      removeSource : false,
+      noProcess    : false
     });
+
     var base    = options.dir ? path.resolve( options.dir ) : false;
 
     // generate hashes
-    forEachFilename( this.files, base, function( filepath, filename ) {
+    grunt.verbose.subhead( 'hashing files' );
+
+    forEachFilename( this.files, base, function ( filepath, filename ) {
       var source = grunt.file.read( filepath, {
         encoding : null
       });
@@ -71,21 +76,24 @@ module.exports = function ( grunt ) {
 
       hashes[ filename || filepath ] = hash;
 
-      grunt.log.writeln( filename || filepath, hash );
+      // grunt.log.writeln( filename || filepath, hash );
     });
 
     // now update the references
-    forEachFilename( this.files, base, function( filepath, filename ) {
+    grunt.verbose.subhead( 'copying files and updating references' );
+
+    forEachFilename( this.files, base, function ( filepath, filename ) {
       var hashedFilename = filepath
         .replace( /\.js$/, '' ) + '-' + hashes[ filename || filepath ] + '.js';
 
       var fileRefs = Object.keys( hashes );
 
       grunt.file.copy( filepath, hashedFilename, {
-        process : function ( content ) {
-          fileRefs.forEach( function ( ref ) {
-            console.log( '>>>', ref, hashes[ ref ] );
+        process : function ( content, filepath ) {
+          grunt.verbose.writeln();
+          grunt.verbose.write( '  updating refs in ' + filepath + '...' );
 
+          fileRefs.forEach( function ( ref ) {
             var fixedRef = ref.replace( /\.js$/, '' ).replace( '\\', '/' );
 
             content = content
@@ -93,8 +101,22 @@ module.exports = function ( grunt ) {
           });
 
           return content;
-        }
-      } );
+        },
+
+        // skip those files for updating refs - handy for libs
+        noProcess : options.noProcess
+      });
     });
+
+    // remove source files for hashes, if desired
+    if ( options.removeSource ) {
+      grunt.verbose.subhead( 'deleting source files' );
+
+      forEachFilename( this.files, base, function ( filepath ) {
+        grunt.file.delete( filepath );
+      });
+    }
+
+
   });
 };

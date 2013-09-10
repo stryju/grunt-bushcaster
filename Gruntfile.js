@@ -45,7 +45,7 @@ module.exports = function ( grunt ) {
           keepBuildDir   : true,
 
           optimize       : 'uglify2',
-          removeCombined : false,
+          removeCombined : true,
 
           modules : [
             {
@@ -66,7 +66,10 @@ module.exports = function ( grunt ) {
       ],
 
       options : {
-        dir : 'test/dist'
+        dir          : 'test/dist',
+        hashLength   : 8,
+        removeSource : true,
+        noProcess    : 'test/dist/vendor/**/*.js'
       }
     }
   });

@@ -1,1 +1,0 @@
-define("module2",{foo:function(){console.log("module2")}}),require("require-config",function(){require(["module1/module","module2","lib"],function(o,e,n){o.foo(),e.foo(),n()})}),define("main",function(){});
