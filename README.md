@@ -38,4 +38,4 @@ sample:
 
 contributing
 ------------
-since it's work in progress, please don't file any bugs or PRs - i know there's a lot to do...
+since it's work in progress, i know there's a lot to do... but feel free to send in bugs, PRs here
