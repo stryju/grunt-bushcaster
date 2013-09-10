@@ -39,22 +39,22 @@ module.exports = function ( grunt ) {
       test : {
         options : {
           appDir         : 'test/src/',
-          mainConfigFile : 'test/src/config.js',
+          mainConfigFile : 'test/src/require-config.js',
           dir            : 'test/dist',
           keepBuildDir   : true,
 
           optimize       : 'uglify2',
-          removeCombined : true,
+          removeCombined : false,
 
-          // modules : [
-          //   {
-          //     name    : 'config',
-          //     exclude : [
-          //       'vendor/lib',
-          //       'module1/module'
-          //     ]
-          //   }
-          // ]
+          modules : [
+            {
+              name    : 'main',
+              exclude : [
+                'vendor/lib',
+                'module1/module'
+              ]
+            }
+          ]
         }
       }
     },
@@ -68,16 +68,15 @@ module.exports = function ( grunt ) {
         dir : 'test/dist'
       }
     }
-
   });
 
   grunt.registerTask(
     'default',
     [
       'jshint',
-      'clean',
-      'requirejs'
-      // 'requirejs-cachebuster'
+      'clean:scripts',
+      'requirejs',
+      'requirejs-cachebuster'
     ]
   );
 };

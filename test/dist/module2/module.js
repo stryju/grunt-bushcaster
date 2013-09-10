@@ -1,1 +1,1 @@
-define([],function(){return{foo:function(){console.log("module2")}}});
+define({foo:function(){console.log("module2")}});

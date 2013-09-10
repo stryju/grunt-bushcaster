@@ -1,3 +1,5 @@
-+function(){
+;+function(){
   'use strict';
+
+  window.superLib = {};
 }();

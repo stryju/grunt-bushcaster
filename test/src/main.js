@@ -1,16 +1,18 @@
 /* global
-  define: false
+  require: false
 */
 
-define([
-  'module1/module',
-  'module2/module',
-  'vendor/lib'
-], function ( Module1, Module2, awesomeLib ) {
+require( 'require-config', function () {
   'use strict';
 
-  Module1.foo();
-  Module2.foo();
+  require([
+    'module1/module',
+    'module2',
+    'lib'
+  ], function ( Module1, Module2, awesomeLib ) {
+    Module1.foo();
+    Module2.foo();
 
-  awesomeLib();
+    awesomeLib();
+  });
 });

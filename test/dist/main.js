@@ -1,1 +1,1 @@
-define(["module1/module","module2/module","vendor/lib"],function(o,e,u){o.foo(),e.foo(),u()});
+require("require-config",function(){require(["module1/module","module2","lib"],function(o,e,u){o.foo(),e.foo(),u()})});
