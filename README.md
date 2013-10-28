@@ -23,9 +23,6 @@ sample:
   ],
 
   options : {
-    // working directory, to be stripped from filepaths
-    // might work around it to use cwd in files...
-    dir : 'test/dist',
 
     // length of the hash to be added
     hashLength : 8,
