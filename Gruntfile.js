@@ -19,7 +19,7 @@ module.exports = function ( grunt ) {
     pkg : grunt.file.readJSON( 'package.json' ),
 
     clean : {
-      scripts : 'test/dist',
+      tests : 'tmp',
     },
 
     jshint : {
@@ -29,8 +29,8 @@ module.exports = function ( grunt ) {
       files : {
         src : [
           'Gruntfile.js',
-          'test/src/**/*.js',
-          '!test/src/vendor/**/*.js'
+          'test/fixtures/**/*.js',
+          '!test/fixtures/vendor/**/*.js'
         ]
       }
     },
@@ -38,10 +38,10 @@ module.exports = function ( grunt ) {
     requirejs : {
       test : {
         options : {
-          appDir         : 'test/src',
+          appDir         : 'test/fixtures',
           baseUrl        : '.',
-          mainConfigFile : 'test/src/require-config.js',
-          dir            : 'test/dist',
+          mainConfigFile : 'test/fixtures/require-config.js',
+          dir            : 'tmp',
           keepBuildDir   : true,
 
           optimize       : 'uglify2',
@@ -60,14 +60,20 @@ module.exports = function ( grunt ) {
       }
     },
 
+    nodeunit: {
+      tests: [
+        'test/*_test.js'
+      ]
+    },
+
     'bushcaster' : {
       test : {
         files : [
           {
             expand : true,
-            cwd    : 'test/dist/',
+            cwd    : 'tmp/',
             src    : [ '**/*.js' ],
-            dest   : 'test/build/'
+            // dest   : 'test/build/'
           }
         ],
 
@@ -84,8 +90,8 @@ module.exports = function ( grunt ) {
 
             var out = '<?php\n\n$files = [\n\t' + arr.join( ',\n\t' ) + '\n];\n';
 
-            grunt.file.write( 'test/dist/map.php', out );
-            grunt.file.write( 'test/dist/fap.json', JSON.stringify( map ) );
+            grunt.file.write( 'tmp/map.php', out );
+            grunt.file.write( 'tmp/map.json', JSON.stringify( map ) );
           }
         }
       }
@@ -96,9 +102,10 @@ module.exports = function ( grunt ) {
     'default',
     [
       'jshint',
-      'clean:scripts',
+      'clean',
       'requirejs',
-      'bushcaster'
+      'bushcaster',
+      'nodeunit'
     ]
   );
 };

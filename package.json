@@ -1,8 +1,8 @@
 {
   "name": "grunt-bushcaster",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "grunt task for bushcasting.. erm... i mean cachebusting",
-  "main": "index.js",
+  "main": "Gruntfile.js",
   "scripts": {
     "test": "grunt"
   },
@@ -11,17 +11,21 @@
     "url": "git://github.com/stryju/grunt-bushcaster.git"
   },
   "keywords": [
+    "gruntpluing",
     "grunt",
+    "cachebuster",
     "requirejs",
-    "cachebuster"
+    "hash",
+    "cache",
+    "update references"
   ],
   "author": "tomasz stryjewski",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/stryju/grunt-bushcaster/issues"
   },
-  "dependencies" : {
-    "grunt": "~0.4.1"
+  "engines": {
+    "node": ">= 0.8.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -29,6 +33,10 @@
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-requirejs": "~0.4.1",
     "matchdep": "~0.1.2",
-    "time-grunt": "~0.1.1"
+    "time-grunt": "~0.1.1",
+    "grunt-contrib-nodeunit": "~0.2.2"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.1"
   }
 }

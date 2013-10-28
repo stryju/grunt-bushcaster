@@ -1,0 +1,1 @@
+require.config({shim:{lib:{exports:"superLib"}},paths:{lib:"vendor/lib-9758563f",module2:"module2/module"}});
