@@ -1,7 +1,7 @@
 {
-  "name": "grunt-requirejs-cachebuster",
-  "version": "0.0.2",
-  "description": "grunt task for requirejs cachebusting",
+  "name": "grunt-bushcaster",
+  "version": "0.0.1",
+  "description": "grunt task for bushcasting.. erm... i mean cachebusting",
   "main": "index.js",
   "scripts": {
     "test": "grunt"
@@ -19,6 +19,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/stryju/grunt-requirejs-cachebuster/issues"
+  },
+  "dependencies" : {
+    "grunt": "~0.4.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

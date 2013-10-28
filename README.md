@@ -1,11 +1,10 @@
-grunt-requirejs-cachebuster
+grunt-bushcaster
 ===========================
-the name says it all, doesn't it?
-keep in mind, tho - it's **work in progress** ( you have been warned )
+cachebuster with a function to update references in the sources
+(useful for requirejs dependencies)
 
 todos
 -----
-- skip processing for certain files
 - support reading the config from requirejs config
 - more sophisticated testing
 - lots'more afaik...
@@ -13,9 +12,13 @@ todos
 sample:
 
 ```js
-'requirejs-cachebuster' : {
+'bushcaster' : {
   files : [
-    'test/dist/**/*.js'
+    {
+      expand: true,
+      cwd: 'test/dist/',
+      src: ['**/*.js']
+    }
   ],
 
   options : {
@@ -27,11 +30,15 @@ sample:
     hashLength : 8,
 
     // should we removed the source files?
-    removeSources : 'true',
+    removeSources : true,
 
     // globbing pattern for files that sould not be processed with updated references
     // useful for libs, like jquery, or so - might speed up the whole process a bit
-    noProcess : 'test/dist/vendor/**/*.js'
+    noProcess : 'test/dist/vendor/**/*.js',
+
+    // function to handle the hash map
+    // so you can write the output to json or sth ;-)
+    onComplete  : function ( map, files ) { ... }
   }
 }
 ```

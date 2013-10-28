@@ -60,16 +60,33 @@ module.exports = function ( grunt ) {
       }
     },
 
-    'requirejs-cachebuster' : {
-      files : [
-        'test/dist/**/*.js'
-      ],
+    'bushcaster' : {
+      test : {
+        files : [
+          {
+            expand: true,
+            cwd: 'test/dist/',
+            src: ['**/*.js']
+            // dest: 'test/build/'
+          }
+        ],
 
-      options : {
-        dir          : 'test/dist',
-        hashLength   : 8,
-        removeSource : true,
-        noProcess    : 'test/dist/vendor/**/*.js'
+        options : {
+          hashLength   : 8,
+          removeSource : true,
+          noProcess    : 'test/dist/vendor/**/*.js',
+          onComplete   : function ( map, files ) {
+            var arr = [];
+
+            files.forEach( function ( file ) {
+              arr.push( '\'' + file + '\'=>\'' + map[ file ] + '\'' );
+            });
+
+            var out = '<?php $files = [' + arr.join( ',' ) + '];';
+
+            grunt.file.write( 'test/dist/file.php', out );
+          }
+        }
       }
     }
   });
@@ -80,7 +97,7 @@ module.exports = function ( grunt ) {
       'jshint',
       'clean:scripts',
       'requirejs',
-      'requirejs-cachebuster'
+      'bushcaster'
     ]
   );
 };
