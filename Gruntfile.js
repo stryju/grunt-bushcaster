@@ -64,10 +64,10 @@ module.exports = function ( grunt ) {
       test : {
         files : [
           {
-            expand: true,
-            cwd: 'test/dist/',
-            src: ['**/*.js']
-            // dest: 'test/build/'
+            expand : true,
+            cwd    : 'test/dist/',
+            src    : [ '**/*.js' ],
+            dest   : 'test/build/'
           }
         ],
 
@@ -82,9 +82,10 @@ module.exports = function ( grunt ) {
               arr.push( '\'' + file + '\'=>\'' + map[ file ] + '\'' );
             });
 
-            var out = '<?php $files = [' + arr.join( ',' ) + '];';
+            var out = '<?php\n\n$files = [\n\t' + arr.join( ',\n\t' ) + '\n];\n';
 
-            grunt.file.write( 'test/dist/file.php', out );
+            grunt.file.write( 'test/dist/map.php', out );
+            grunt.file.write( 'test/dist/fap.json', JSON.stringify( map ) );
           }
         }
       }
