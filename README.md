@@ -18,14 +18,14 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-bushcaster');
 ```
 
-## The "procssor" task
+## The "bushcaster" task
 
 ### Overview
-In your project's Gruntfile, add a section named `procssor` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `bushcaster` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  procssor: {
+  bushcaster: {
     options: {
       // Task-specific options go here.
     },
@@ -66,45 +66,49 @@ function to handle the hash map, so you can write the output to json or sth ;-)
 ### Usage Examples
 
 ```js
-'bushcaster' : {
-  files : [
-    {
-      expand : true,
-      cwd    : 'test/dist/',
-      src    : [ '**/*.js' ],
-      dest   : 'test/build/'
-    }
-  ],
+grunt.initConfig({
+  'bushcaster' : {
+    test : {
+      files : [
+        {
+          expand : true,
+          cwd    : 'test/dist/',
+          src    : [ '**/*.js' ],
+          dest   : 'test/build/'
+        }
+      ],
 
-  options : {
+      options : {
 
-    // length of the hash to be added
-    hashLength : 8,
+        // length of the hash to be added
+        hashLength : 8,
 
-    // should we removed the source files?
-    removeSources : true,
+        // should we removed the source files?
+        removeSources : true,
 
-    // globbing pattern for files that sould not be processed with updated references
-    // useful for libs, like jquery, or so - might speed up the whole process a bit
-    noProcess : 'test/dist/vendor/**/*.js',
+        // globbing pattern for files that sould not be processed with updated references
+        // useful for libs, like jquery, or so - might speed up the whole process a bit
+        noProcess : 'test/dist/vendor/**/*.js',
 
-    // function to handle the hash map
-    // so you can write the output to json or sth ;-)
-    // in this case, we write json AND php output of our map :-)
-    onComplete  : function ( map, files ) {
-      var arr = [];
+        // function to handle the hash map
+        // so you can write the output to json or sth ;-)
+        // in this case, we write json AND php output of our map :-)
+        onComplete  : function ( map, files ) {
+          var arr = [];
 
-      files.forEach( function ( file ) {
-        arr.push( '\'' + file + '\'=>\'' + map[ file ] + '\'' );
-      });
+          files.forEach( function ( file ) {
+            arr.push( '\'' + file + '\'=>\'' + map[ file ] + '\'' );
+          });
 
-      var out = '<?php\n\n$files = [\n\t' + arr.join( ',\n\t' ) + '\n];\n';
+          var out = '<?php\n\n$files = [\n\t' + arr.join( ',\n\t' ) + '\n];\n';
 
-      grunt.file.write( 'test/dist/map.php', out );
-      grunt.file.write( 'test/dist/fap.json', JSON.stringify( map ) );
+          grunt.file.write( 'test/dist/map.php', out );
+          grunt.file.write( 'test/dist/fap.json', JSON.stringify( map ) );
+        }
+      }
     }
   }
-}
+})
 ```
 
 ## todos
@@ -116,6 +120,7 @@ function to handle the hash map, so you can write the output to json or sth ;-)
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 0.0.5 2013-10-30 erm... docs fix
 * 0.0.4 2013-10-30 further cleaning, fixed keywords, improved docs, added a proper license
 * 0.0.3 2013-10-28 added first batch of tests, cleaned up
 * 0.0.2 2013-10-28 added support for `dest` option
