@@ -1,6 +1,6 @@
 {
   "name": "grunt-bushcaster",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "grunt task for bushcasting.. erm... i mean cachebusting",
   "main": "Gruntfile.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git://github.com/stryju/grunt-bushcaster.git"
   },
   "keywords": [
-    "gruntpluing",
+    "gruntplugin",
     "grunt",
     "cachebuster",
     "requirejs",
@@ -19,8 +19,17 @@
     "cache",
     "update references"
   ],
-  "author": "tomasz stryjewski",
-  "license": "MIT",
+  "author": {
+    "name": "tomasz stryjewski",
+    "email": "stryjewski.t@gmail.com",
+    "url": "stryju.pl"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/stryju/grunt-bushcaster/blob/master/LICENSE-MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/stryju/grunt-bushcaster/issues"
   },

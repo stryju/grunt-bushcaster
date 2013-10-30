@@ -49,11 +49,10 @@ module.exports = function ( grunt ) {
 
   grunt.registerMultiTask( 'bushcaster', 'voodoo', function () {
     var options = this.options({
-      dir          : false,
       hashLength   : 8,
       removeSource : false,
       noProcess    : false,
-      onComplete   : false
+      onComplete   : null
     });
 
     // generate hashes
