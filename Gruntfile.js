@@ -19,7 +19,7 @@ module.exports = function ( grunt ) {
     pkg : grunt.file.readJSON( 'package.json' ),
 
     clean : {
-      tests : 'tmp',
+      tests : 'tmp'
     },
 
     jshint : {
@@ -29,6 +29,7 @@ module.exports = function ( grunt ) {
       files : {
         src : [
           'Gruntfile.js',
+          'tasks/bushcaster.js',
           'test/fixtures/**/*.js',
           '!test/fixtures/vendor/**/*.js'
         ]

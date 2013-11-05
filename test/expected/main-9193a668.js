@@ -1,0 +1,1 @@
+define("module2",{foo:function(){console.log("module2")}}),require("require-config-78f4cec6",function(){require(["module1/module-3f4e154c","module2","lib"],function(o,e,n){o.foo(),e.foo(),n()})}),define("main-9193a668",function(){});
