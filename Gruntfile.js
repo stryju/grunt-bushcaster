@@ -78,10 +78,14 @@ module.exports = function ( grunt ) {
         ],
 
         options : {
-          hashLength   : 8,
-          removeSource : true,
-          noProcess    : 'test/dist/vendor/**/*.js',
-          onComplete   : function ( map, files ) {
+          hashLength       : 8,
+          removeSource     : true,
+          requirejs        : true,
+          noProcess        : 'test/dist/vendor/**/*.js',
+          // refPathTransform : function ( ref ) {
+          //   return 'x__' + ref;
+          // },
+          onComplete       : function ( map, files ) {
             var arr = [];
 
             files.forEach( function ( file ) {

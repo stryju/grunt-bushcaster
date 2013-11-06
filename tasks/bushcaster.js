@@ -47,12 +47,18 @@ module.exports = function ( grunt ) {
     });
   }
 
+  function isFunc( ref ) {
+    return ref && typeof ref === 'function';
+  }
+
   grunt.registerMultiTask( 'bushcaster', 'voodoo', function () {
     var options = this.options({
-      hashLength   : 8,
-      removeSource : false,
-      noProcess    : false,
-      onComplete   : null
+      hashLength       : 8,
+      removeSource     : false,
+      noProcess        : false,
+      onComplete       : null,
+      refPathTransform : null,
+      requirejs        : true
     });
 
     // generate hashes
@@ -89,13 +95,32 @@ module.exports = function ( grunt ) {
       grunt.file.copy( src, hashedFilename, {
         process : function ( content, filepath ) {
           grunt.verbose.writeln();
-          grunt.verbose.write( '  updating refs in ' + filepath + '...' );
+          grunt.verbose.writeln( '  updating refs in ' + filepath + '...' );
 
           fileRefs.forEach( function ( ref ) {
-            var fixedRef = ref.replace( /\.js$/, '' ).replace( '\\', '/' );
+            var fixedRef = ref;
 
-            content = content
-              .replace( '"' + fixedRef + '"', '"' + fixedRef + '-' + hashes[ ref ] + '"' );
+            if ( options.requirejs) {
+              fixedRef =
+                fixedRef
+                  .replace( /\.js$/, '' )
+                  .replace( '\\', '/' );
+            }
+
+            if ( isFunc( options.refPathTransform ) ) {
+              fixedRef = options.refPathTransform( fixedRef );
+            }
+
+            // escape chars for regexp
+            fixedRef = fixedRef.replace( /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&' );
+
+            var rex = new RegExp( '(\'|\")(' + fixedRef + ')[\'|\"]', 'g' );
+
+            content = content.replace( rex, function ( match, quot, name ) {
+              grunt.verbose.writeln( '    reference found: ' + match );
+              return quot + name + '-' + hashes[ ref ] + quot;
+            });
+              // .replace( '"' + fixedRef + '"', '"' + fixedRef + '-' + hashes[ ref ] + '"' );
           });
 
           return content;
@@ -116,7 +141,7 @@ module.exports = function ( grunt ) {
     }
 
     // do something with the map of hashes
-    if ( options.onComplete && typeof options.onComplete === 'function' ) {
+    if ( isFunc( options.onComplete ) ) {
       grunt.verbose.subhead( 'executing onComplete' );
       options.onComplete( map, Object.keys( map ) );
     }
