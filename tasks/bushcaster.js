@@ -23,9 +23,6 @@ module.exports = function ( grunt ) {
   var path   = require( 'path' );
   var crypto = require( 'crypto' );
 
-  var hashes = {};
-  var map    = {};
-
   // keeping it DRY
   function forEachFilename( files, callback ) {
     files.forEach( function ( file ) {
@@ -60,6 +57,9 @@ module.exports = function ( grunt ) {
       refPathTransform : null,
       requirejs        : true
     });
+
+    var hashes = {};
+    var map    = {};
 
     // generate hashes
     grunt.verbose.subhead( 'hashing files' );

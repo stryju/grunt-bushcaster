@@ -139,6 +139,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 0.0.7 2013-11-22 fixed error with map / files objects not being purged for more than one task
 * 0.0.6 2013-11-06 tweaked the way the requirejs references processing work ...oh, and docs
 * 0.0.5 2013-10-30 erm... docs fix
 * 0.0.4 2013-10-30 further cleaning, fixed keywords, improved docs, added a proper license
