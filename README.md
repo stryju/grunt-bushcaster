@@ -44,7 +44,7 @@ Default value: `8`
 
 Length of the hash to be added.
 
-#### options.removeSources
+#### options.removeSource
 Type: `Boolean`
 Default value: `false`
 
@@ -97,7 +97,7 @@ grunt.initConfig({
         hashLength : 8,
 
         // should we removed the source files?
-        removeSources : true,
+        removeSource : true,
 
         // globbing pattern for files that should not be processed with updated references
         // useful for libs, like jquery, or so - might speed up the whole process a bit
