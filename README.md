@@ -146,3 +146,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 * 0.0.3 2013-10-28 added first batch of tests, cleaned up
 * 0.0.2 2013-10-28 added support for `dest` option
 * 0.0.1 2013-10-28 ported requirejs-cachebuster task and renamed to bushcaster
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/stryju/grunt-bushcaster/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
