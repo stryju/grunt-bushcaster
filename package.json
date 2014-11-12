@@ -1,6 +1,6 @@
 {
   "name": "grunt-bushcaster",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "grunt task for bushcasting.. erm... i mean cachebusting",
   "main": "Gruntfile.js",
   "scripts": {
