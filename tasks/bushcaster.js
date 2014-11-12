@@ -40,8 +40,8 @@ module.exports = function ( grunt ) {
         var filename = path.relative( file.orig.cwd, src );
 
         callback( src, filename, file.dest, file.orig.cwd );
-      } );
-    } );
+      });
+    });
   }
 
   function isFunc( ref ) {
@@ -58,7 +58,7 @@ module.exports = function ( grunt ) {
       refPathTransform : null,
       requirejs        : true,
       encoding         : 'utf8'
-    } );
+    });
 
     var referenceMap    = {};
     var fileList        = {};
@@ -100,8 +100,11 @@ module.exports = function ( grunt ) {
         hash       : undefined
       };
 
-      grunt.verbose.writeln( 'Adding file ' + JSON.stringify( fileList[ src ] ) + ', regex: (\'|\")(' + fixedRef + ')[\'|\"]' );
-    } );
+      grunt.verbose.writeln([
+        'Adding file ' + JSON.stringify( fileList[ src ] ),
+        'regex: (\'|\")(' + fixedRef + ')[\'|\"]'
+      ].join( ', ' ) );
+    });
 
     // generate hashes
     grunt.verbose.subhead( 'building reference list' );
@@ -109,7 +112,7 @@ module.exports = function ( grunt ) {
     // build reference list
     Object.keys( fileList ).forEach( function ( fileSrc ) {
       // read file source
-      var source = grunt.file.read( fileSrc, { encoding: options.encoding } );
+      var source = grunt.file.read( fileSrc, { encoding : options.encoding });
       referenceMap[ fileSrc ] = [];
       grunt.verbose.writeln( 'Searching for references in ' + fileSrc );
 
@@ -120,46 +123,50 @@ module.exports = function ( grunt ) {
           grunt.verbose.writeln( '   Found reference ' + refFileSrc );
           referenceMap[ fileSrc ].push( refFileSrc );
         }
-      } );
-    } );
+      });
+    });
 
     function replace( source, file ) {
       return source.replace( file.regex, function ( match, quot, name ) {
         grunt.verbose.writeln( '    reference found: ' + match );
+
         if ( ! options.requirejs ) {
-          var ext = path.extname( name );
+          var ext      = path.extname( name );
           var realName = path.join( path.dirname( name ), path.basename( name, ext ) );
+
           return quot + realName + '-' + file.hash + ext + quot;
-        } else {
-          return quot + name + '-' + file.hash + quot;
         }
-      } );
+
+        return quot + name + '-' + file.hash + quot;
+      });
     }
 
     function hashFiles( files ) {
       var fileKeys = Object.keys( files );
+
       if ( ! files || ! fileKeys.length) {
         return;
       }
 
       var restFiles = {};
+
       fileKeys.forEach( function ( fileSrc ) {
         var file = fileList[ fileSrc ];
+
         if ( canBeHashed( file.src ) ) {
           grunt.verbose.writeln( '   Hashing file: ' + file.src );
-          var source = grunt.file.read( file.src, { encoding: options.encoding } );
+          var source = grunt.file.read( file.src, { encoding : options.encoding });
 
           // replace references with hash
           var hasOwnReference = false;
           referenceMap[ file.src ].forEach( function ( refFileSrc ) {
             // handle own references differently to avoid infinite loops
             if ( fileSrc !== refFileSrc ) {
-              var refFile = fileList[ refFileSrc ];
-              source = replace( source, refFile );
+              source = replace( source, fileList[ refFileSrc ] );
             } else {
               hasOwnReference = true;
             }
-          } );
+          });
 
           // hash file after references have been updated (except own references)
           fileList[ file.src ].hash = crypto
@@ -172,49 +179,53 @@ module.exports = function ( grunt ) {
           source = replace( source, fileList[ file.src ] );
 
           // build destination path with hash included
-          var fileDest = file.dest ? file.cwd + file.dest : file.src;
-          var fileDestSplit = fileDest.split('.');
-          if ( fileDestSplit.length >= 2) {
+          var fileDest      = file.dest ? ( file.cwd + file.dest ) : file.src;
+          var fileDestSplit = fileDest.split( '.' );
+
+          if ( fileDestSplit.length >= 2 ) {
             fileDestSplit[ fileDestSplit.length - 2 ] += '-' + fileList[ file.src ].hash;
           }
           fileList[ file.src ].destHashed = fileDestSplit.join( '.' );
 
-          map[ file.dest || path.relative( file.cwd, file.src ) ] = path.relative( file.cwd, fileList[ file.src ].destHashed );
+          var dest = file.dest || path.relative( file.cwd, file.src );
 
-          grunt.file.copy( file.src, fileList[ file.src ].destHashed, { encoding: options.encoding,
-            process: function () {
+          map[ dest ] = path.relative( file.cwd, fileList[ file.src ].destHashed );
+
+          grunt.file.copy( file.src, fileList[ file.src ].destHashed, {
+            encoding : options.encoding,
+            process : function () {
               // return source with updated references
               return source;
             },
-
             // skip those files for updating refs - handy for libs
-            noProcess: options.noProcess
-          } );
+            noProcess : options.noProcess
+          });
         } else if ( ! fileList[ file.src ].hash ) {
           grunt.verbose.writeln( '   Storing file: ' + file.src );
           restFiles[ file.src ] = file;
         }
-      } );
+      });
 
       if ( Object.keys( restFiles ).length === fileKeys.length ) {
         grunt.fail.warn( 'Infinite loop while bushcasting ' + JSON.stringify( restFiles ) );
       }
+
       if ( Object.keys( restFiles ).length ) {
         hashFiles( restFiles );
       }
     }
 
     function canBeHashed( fileSrc) {
-      if ( ! referenceMap [ fileSrc ].length ) {
+      if ( ! referenceMap[ fileSrc ].length ) {
         return true;
       }
 
       var nonHashedCount = 0;
       referenceMap[ fileSrc ].forEach( function ( refFileSrc ) {
-        if ( ! fileList[ refFileSrc] .hash && refFileSrc !== fileSrc) {
+        if ( ! fileList[ refFileSrc ].hash && refFileSrc !== fileSrc ) {
           nonHashedCount++;
         }
-      } );
+      });
 
       return nonHashedCount === 0;
     }
@@ -229,7 +240,7 @@ module.exports = function ( grunt ) {
 
       forEachFilename( this.files, function ( src ) {
         grunt.file.delete( src );
-      } );
+      });
     }
 
     // do something with the map of hashes
@@ -237,6 +248,5 @@ module.exports = function ( grunt ) {
       grunt.verbose.subhead( 'executing onComplete' );
       options.onComplete( map, Object.keys( map ) );
     }
-
-  } );
+  });
 };
