@@ -139,7 +139,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-* 0.1.0 2014-11-12 long awaited PR from @rodikal that includes work of **Laurent Verbruggen** that fixes the tricky hashing inception :-) 
+* 0.1.0 2014-11-12 long awaited PR from [@rodikal](https://github.com/rodikal) that includes work of [@laurentverbruggen](https://github.com/laurentverbruggen) that fixes the tricky hashing inception :-) 
 * 0.0.7 2013-11-22 fixed error with map / files objects not being purged for more than one task
 * 0.0.6 2013-11-06 tweaked the way the requirejs references processing work ...oh, and docs
 * 0.0.5 2013-10-30 erm... docs fix
@@ -148,6 +148,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 * 0.0.2 2013-10-28 added support for `dest` option
 * 0.0.1 2013-10-28 ported requirejs-cachebuster task and renamed to bushcaster
 
-
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/stryju/grunt-bushcaster/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
